@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="jdbc.properties"/>
+    <context id="MySqlContext" targetRuntime="MyBatis3">
+        <!--给model生成toString方法-->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <!--给model生成序列化方法-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!--生成时覆盖现有文件-->
+                <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+        <!--是否生成注释 true不生成-->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--   连接数据库     -->
+        <jdbcConnection driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}"
+                        password="${jdbc.password}">
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!--   javaPoJo类     -->
+        <javaModelGenerator targetPackage="com.levc.eos.mbg.bean"
+                            targetProject="./eos-mbg/src/main/java"/>
+
+        <!--  SQL映射文件      -->
+        <sqlMapGenerator targetPackage="com.levc.eos.mbg.mapper"
+                         targetProject="./eos-mbg/src/main/resources"/>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.levc.eos.mbg.mapper"
+                             targetProject="./eos-mbg/src/main/java"/>
+
+        <!-- %表示所有表  -->
+        <table tableName="%">
+        </table>
+
+    </context>
+</generatorConfiguration>
